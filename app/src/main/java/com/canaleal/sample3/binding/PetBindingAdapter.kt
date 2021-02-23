@@ -16,7 +16,7 @@ fun bindName(textView: TextView, pet: Pet?){
     if(pet is Pet){
 
 
-        textView.text = "Name: " + pet.petName
+        textView.text = "Breed: " + pet.petBreed
 
     }
 }
@@ -27,7 +27,7 @@ fun bindType(textView: TextView, pet: Pet?){
     if(pet is Pet){
 
 
-        textView.text = "Type: " + pet.petType
+        textView.text = "Hair Length: " + pet.petHair
 
     }
 }

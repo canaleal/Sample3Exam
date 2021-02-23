@@ -1,23 +1,31 @@
 package com.canaleal.sample3.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.canaleal.sample3.MainActivity
+import com.canaleal.sample3.PetApplication
 import com.canaleal.sample3.ui.FirstFragmentDirections
 import com.canaleal.sample3.R
 import com.canaleal.sample3.domain.Pet
 import com.canaleal.sample3.databinding.FragmentFirstBinding
 import dagger.hilt.android.AndroidEntryPoint
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
+
+
 @AndroidEntryPoint
-class FirstFragment : Fragment() {
+class FirstFragment : Fragment(), AdapterView.OnItemSelectedListener {
+
+
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
 
@@ -46,9 +54,33 @@ class FirstFragment : Fragment() {
         binding.viewModel = entryViewModel  //This is the ItemRollViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+
+        val spinner: Spinner = binding.planetsSpinner
+                // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+                PetApplication.applicationContext(),
+                R.array.hair_array,
+                android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+
         binding.sendButton.setOnClickListener { onSend() }
 
         return binding.root
+    }
+
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) {
+        // Another interface callback
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,19 +90,24 @@ class FirstFragment : Fragment() {
 
     private fun onSend(){
 
-        val name = binding.petNameInput.text.toString()
+        val petBreed = binding.petNameInput.text.toString()
 
-        //Get the selected game text
-        val petType = when (binding.messageGroup.checkedRadioButtonId) {
-            R.id.cat_button -> getString(R.string.cat)
-            R.id.dog_button -> getString(R.string.dog)
-            else -> getString(R.string.undefined)
+        if(petBreed == ""){
+            val text = "Name cannot be empty!"
+            val duration = Toast.LENGTH_SHORT
+
+            val toast = Toast.makeText(context, text, duration)
+            toast.show()
         }
-        val pet = Pet(name, petType)
+        else{
 
 
-        val action =
-            FirstFragmentDirections.actionFirstFragmentToSecondFragment(pet)
-        navController.navigate(action)
+            val petHair = "short"
+            val action =
+                    FirstFragmentDirections.actionFirstFragmentToSecondFragment(
+                            Pet(petBreed, petHair)
+                    )
+            navController.navigate(action)
+        }
     }
 }

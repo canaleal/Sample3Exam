@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:labelFor="@id/pet_name_input"
-            android:text="@string/enter_pet_name"
+            android:text="@string/enter_breed"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <EditText
@@ -53,33 +53,13 @@
             android:inputType="textPersonName"
             android:autofillHints="Your Name" />
 
-
-        <RadioGroup
-            android:id="@+id/message_group"
+        <Spinner
+            android:id="@+id/planets_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gap1"
-            android:checkedButton="@id/cat_button">
+            android:layout_marginTop="16dp"
+            />
 
-            <RadioButton
-                android:id="@+id/cat_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/cat"
-                android:textSize="14sp" />
-
-            <RadioButton
-                android:id="@+id/dog_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dog"
-                android:textSize="14sp" />
-
-
-
-        </RadioGroup>
 
         <Button
             android:id="@+id/send_button"
@@ -87,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/gap2"
-            android:text="@string/play" />
+            android:text="@string/add" />
 
         <Space
             android:layout_width="match_parent"
